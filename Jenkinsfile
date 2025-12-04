@@ -7,7 +7,7 @@ pipeline {
       stage("checkout code"){
          steps{
             echo "pulling latest code from github..."
-            git branch: 'main', url:''
+            git branch: 'main', url:'https://github.com/SakshamJain2/application-python-flask-view-count.git'
          }
       }
       stage("build docker images"){
