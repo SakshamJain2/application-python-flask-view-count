@@ -5,7 +5,9 @@ services:
     image: view_count:latest
     build: .
     ports:
-      - "80:8000"
+      - "80:5000"
+    depends_on:
+      - redis
 
   redis:
     image: redis:alpine
