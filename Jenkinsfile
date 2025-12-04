@@ -13,18 +13,15 @@ pipeline {
             }
         }
 
-        stage("build docker images") {
-            steps {
-                echo "building docker images..."
-                sh "docker build -t ${IMAGE_NAME} ."
-            }
-        }
-
         stage("create container using docker-compose up") {
             steps {
-                echo "creating containers"
-                sh "docker-compose down || true"
-                sh "docker-compose up -d"
+                echo "sanitizing compose file (remove NBSPs) and bringing containers up"
+                sh '''
+                    sed -i 's/\\xC2\\xA0/ /g' docker-compose.yml || true
+                    expand -t 2 docker-compose.yml > /tmp/compose_fixed.yml && mv /tmp/compose_fixed.yml docker-compose.yml || true
+                    docker-compose down || true
+                    docker-compose up -d --build
+                '''
             }
         }
     }
