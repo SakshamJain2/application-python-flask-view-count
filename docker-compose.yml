@@ -2,10 +2,10 @@ version: "3.9"
 
 services:
   web:
-    image: view_count:latest
     build: .
+    image: view_count:latest
     ports:
-      - "80:8000"
+      - "80:5000"
     depends_on:
       - redis
 
