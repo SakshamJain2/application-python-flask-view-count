@@ -5,7 +5,7 @@ services:
     image: view_count:latest
     build: .
     ports:
-      - "80:5000"
+      - "80:8000"
     depends_on:
       - redis
 
